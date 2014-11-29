@@ -43,8 +43,13 @@ gulp.task('js', ['clean'], function () {
              .pipe(gulp.dest('build/scripts'));
 });
 
+gulp.task('json', ['clean'], function() {
+    gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
+        .pipe(gulp.dest('build/scripts/'));
+});
+
 // Scripts
-gulp.task('scripts', ['coffee', 'js'], function () {
+gulp.task('scripts', ['coffee', 'js', 'json'], function () {
     return browserify('./build/scripts/app.js')
             .bundle()
             .pipe(source('app.js'))
@@ -112,18 +117,13 @@ gulp.task('serve', ['build'], function () {
         }));
 });
 
-gulp.task('json', function() {
-    gulp.src('app/scripts/json/**/*.json', {base: 'app/scripts'})
-        .pipe(gulp.dest('dist/scripts/'));
-});
-
 // Watch
 gulp.task('watch', ['serve'], function () {
 
     gulp.watch('bower.json', ['html']);
 
     // Watch .json files
-    gulp.watch('app/scripts/**/*.json', ['json']);
+    gulp.watch('app/scripts/**/*.json', ['build']);
 
     // Watch .html files
     gulp.watch('app/*.html', ['build']);
