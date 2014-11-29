@@ -25,16 +25,16 @@ BuildView = React.createFactory React.createClass
       JobView job
 
     div className: 'equal height row',
-      div className: "ui vertical inverted #{ @getColour() } segment",
-        div className: 'ui page grid',
+      div className: "ui vertical inverted secondary #{ @getColour() } segment",
+        div className: 'ui vertically padded page grid',
           div className: 'four wide column',
             h2 {}, @props.build.repo
             p {}, @props.build.commit.message
-          div className: 'eight wide column',
+          div className: 'seven wide column',
             div className: 'ui huge labels',
               jobs.reverse()
-          div className: 'four wide column',
-            div className: 'ui tag label',
+          div className: 'five wide right aligned column',
+            div className: 'ui large yellow tag label',
               @props.build.branch,
               '#',
               @props.build.commit.hash,
