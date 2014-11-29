@@ -1,9 +1,21 @@
 [
   {
+    "repo": "foo/zorp",
+    "status": "building",
+    "branch": "feature-foo",
+    "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
+    "number": 10,
+    "jobs": [
+      {"status": "success", "name": "unit"},
+      {"status": "success", "name": "integration"},
+      {"status": "building", "name": "code style"}
+    ]
+  },
+  {
     "repo": "foo/bar",
     "status": "success",
     "branch": "master",
-    "commit": {"hash": "abcde", "message": "did something"},
+    "commit": {"author": "alexkalderimis", "hash": "abcde", "message": "did something"},
     "number": 152,
     "jobs": [
       {"status": "success", "name": "unit"},
@@ -15,7 +27,7 @@
     "repo": "foo/baz",
     "status": "error",
     "branch": "dev",
-    "commit": {"hash": "abcde", "message": "did something"},
+    "commit": {"author": "joshkh", "hash": "abcde", "message": "did something"},
     "number": 2,
     "jobs": [
       {"status": "success", "name": "unit"},
@@ -27,7 +39,7 @@
     "repo": "foo/quux",
     "status": "failure",
     "branch": "feature-foo",
-    "commit": {"hash": "abcde", "message": "did something"},
+    "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
     "number": 10,
     "jobs": [
       {"status": "success", "name": "unit"},

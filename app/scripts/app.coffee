@@ -7,6 +7,7 @@ COLORS =
   success: 'teal'
   error: 'black'
   failure: 'red'
+  building: 'yellow'
 
 JobView = React.createFactory React.createClass
 
@@ -24,20 +25,21 @@ BuildView = React.createFactory React.createClass
       job.key = i
       JobView job
 
-    div className: 'equal height row',
-      div className: "ui vertical inverted secondary #{ @getColour() } segment",
-        div className: 'ui vertically padded page grid',
-          div className: 'four wide column',
-            h2 {}, @props.build.repo
-            p {}, @props.build.commit.message
-          div className: 'seven wide column',
-            div className: 'ui huge labels',
-              jobs.reverse()
-          div className: 'five wide right aligned column',
-            div className: 'ui large yellow tag label',
-              @props.build.branch,
-              '#',
-              @props.build.commit.hash,
+    div className: "secondary #{ @getColour() } row",
+      div className: 'five wide column',
+        h2 {}, @props.build.repo
+        p {},
+          @props.build.commit.author,
+          ': '
+          @props.build.commit.message
+      div className: 'seven wide column',
+        div className: 'ui huge labels',
+          jobs.reverse()
+      div className: 'right aligned four wide column',
+        div className: 'ui large yellow tag label',
+          @props.build.branch,
+          '#',
+          @props.build.commit.hash,
 
 BuildsView = React.createFactory React.createClass
 
@@ -45,7 +47,8 @@ BuildsView = React.createFactory React.createClass
 
   render: ->
     builds = (BuildView(key: i, build: build) for build, i in @props.builds)
-    div className: 'ui page grid', builds
+    div className: 'ui vertically padded page grid',
+      builds
 
 React.render (BuildsView builds: data), document.querySelector('#app')
 
