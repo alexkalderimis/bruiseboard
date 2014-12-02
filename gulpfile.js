@@ -64,13 +64,16 @@ gulp.task('jade', ['clean'], function () {
 
 // Bower helper
 gulp.task('html', ['bower'], function() {
-  gulp.src('./app/index.html')
+  return gulp.src('./app/index.html')
       .pipe(wiredep())
       .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('bower', ['clean'], function () {
-  gulp.src(bowerFiles(), {base: 'app/bower_components'}).pipe(gulp.dest('./dist/bower_components'));
+  var base = {base: 'app/bower_components'};
+  var hack = ['app/bower_components/semantic-ui/dist/**/*.woff', 'app/bower_components/semantic-ui/dist/**/*.ttf'];
+  return gulp.src(hack.concat(bowerFiles()), base)
+             .pipe(gulp.dest('./dist/bower_components'));
 });
 
 // Images

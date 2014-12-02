@@ -3,24 +3,24 @@
     "repo": "foo/zorp",
     "status": "building",
     "branch": "feature-foo",
-    "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
     "number": 10,
+    "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
     "jobs": [
-      {"status": "success", "name": "unit"},
-      {"status": "success", "name": "integration"},
+      {"status": "passed", "name": "unit"},
+      {"status": "passed", "name": "integration"},
       {"status": "building", "name": "code style"}
     ]
   },
   {
     "repo": "foo/bar",
-    "status": "success",
+    "status": "passed",
     "branch": "master",
     "commit": {"author": "alexkalderimis", "hash": "abcde", "message": "did something"},
     "number": 152,
     "jobs": [
-      {"status": "success", "name": "unit"},
-      {"status": "success", "name": "integration"},
-      {"status": "success", "name": "code style"}
+      {"status": "passed", "name": "unit"},
+      {"status": "passed", "name": "integration"},
+      {"status": "passed", "name": "code style"}
     ]
   },
   {
@@ -30,7 +30,7 @@
     "commit": {"author": "joshkh", "hash": "abcde", "message": "did something"},
     "number": 2,
     "jobs": [
-      {"status": "success", "name": "unit"},
+      {"status": "passed", "name": "unit"},
       {"status": "error", "name": "integration"},
       {"status": "failure", "name": "code style"}
     ]
@@ -42,8 +42,8 @@
     "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
     "number": 10,
     "jobs": [
-      {"status": "success", "name": "unit"},
-      {"status": "success", "name": "integration"},
+      {"status": "passed", "name": "unit"},
+      {"status": "passed", "name": "integration"},
       {"status": "failure", "name": "code style"}
     ]
   }
