@@ -18,7 +18,6 @@
     "gulp-bower-files": "^0.2.7",
     "gulp-cache": "~0.2.4",
     "gulp-coffee": "~2.2.0",
-    "gulp-imagemin": "~1.0.1",
     "gulp-jade": "~0.8.0",
     "gulp-jest": "~0.2.2",
     "gulp-jshint": "~1.8.5",
