@@ -8,11 +8,10 @@ exports.get_build = (repo, cb) ->
     method: 'GET'
     uri: api_base + '/builds'
     headers: headers
-    qs:
-      slug: repo
+    qs: {slug: repo}
   request options, (err, resp, body) ->
     return cb err if err?
-    return new Error("Request failed: #{ resp.status }") unless resp.status is 200
+    return cb new Error("Request failed: #{ resp.status }") unless resp.status is 200
     try
       {builds, commits} = JSON.parse body
     catch e
@@ -32,9 +31,20 @@ exports.get_build = (repo, cb) ->
     cb null, build
 
 exports.get_job = (id, cb) ->
+  if typeof id isnt 'number'
+    return cb new Error('id must be a number')
   options =
     method: 'GET'
     uri: "#{ api_base }/jobs/#{ id }"
     headers: headers
-  request(options, cb)
+  request options, (err, resp, body) ->
+    return cb err if err?
+    return cb new Error("Request failed: #{ resp.status }") unless resp.status is 200
+    try
+      {job, commit} = JSON.parse body
+    catch e
+      return cb e
+    name = job.config.env.replace /\S+=/g, ''
+    status = job.state
+    cb null, {name, status}
 

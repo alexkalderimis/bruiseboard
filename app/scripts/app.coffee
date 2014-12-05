@@ -10,14 +10,14 @@ console.log i
 COLORS =
   passed: 'teal'
   error: 'black'
-  failure: 'red'
+  failed: 'red'
   building: 'yellow'
 
 ICONS =
   error: 'bug'
   building: 'wait'
   passed: 'checkmark'
-  failure: 'remove'
+  failed: 'remove'
 
 JobView = React.createFactory React.createClass
 
@@ -25,21 +25,20 @@ JobView = React.createFactory React.createClass
 
   componentDidMount: ->
     if @props.job?
-      travis.get_job @props.job, (err, resp, body) =>
+      travis.get_job @props.job, (err, job) =>
         if err
           @setState err: err
         else
-          data = JSON.parse body
-          @setState data
+          @setState job: job
 
   render: ->
     if @state.job?
       {name, status} = @state.job
     else
-      {status, status} = @props.job
+      {name, status} = @props.job
 
     if name?
-      a className: "ui #{ COLORS[status] } label",
+      a className: "ui right floated #{ COLORS[status] } label",
         name
     else
       span()
@@ -53,38 +52,41 @@ BuildView = React.createFactory React.createClass
     jobs = for job, key in @props.build.jobs
       JobView {job, key}
 
+    loaderStatus = if @props.build.status is 'building' then 'active' else ''
+
     div className: "secondary #{ @getColour() } row",
-      div className: 'five wide column',
+      div className: 'ten wide column',
         h2 {},
           i className: "#{ ICONS[@props.build.status] } icon"
           @props.build.repo
-        p {},
-          @props.build.commit.author,
-          ': '
-          @props.build.commit.message
-      div className: 'seven wide column',
-        div className: 'ui huge labels',
-          jobs.reverse()
-      div className: 'right aligned four wide column',
+      div className: 'right aligned six wide column',
         div className: 'ui large yellow tag label',
           @props.build.branch,
           '#',
           @props.build.commit.hash.slice(0, 5),
+        p {},
+          @props.build.commit.author,
+          ': '
+          @props.build.commit.message
+      div className: 'sixteen wide column',
+        div className: 'ui huge labels',
+          jobs
+      div className: "ui #{ loaderStatus } loader",
+        'BUILDING'
 
 Loader = React.createFactory React.createClass
 
   render: ->
     div className: 'ui active dimmer',
-      div className: "ui #{ @props.size } text loader",
-        @props.text
+      div className: 'ui loader'
+
 
 BuildsView = React.createFactory React.createClass
 
   getInitialState: -> {}
 
   componentDidMount: ->
-    getBuilds = =>
-      @props.getBuilds (builds) => @setState builds: builds.concat(data)
+    getBuilds = => @props.getBuilds (builds) => @setState builds: builds.concat(data)
     @interval = setInterval getBuilds, 60000
     getBuilds()
 
