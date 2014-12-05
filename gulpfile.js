@@ -113,11 +113,10 @@ gulp.task('default', ['build', 'jest' ]);
 
 // Webserver
 gulp.task('serve', ['build'], function () {
-    gulp.src('dist')
-        .pipe($.webserver({
-            livereload: true,
-            port: 9000
-        }));
+  var port = (process.env.PORT || 9000);
+  var inDevelopment = (process.env.ENV !== 'PROD');
+  var webserver = $.webserver({livereload: inDevelopment, port: port});
+  gulp.src('dist').pipe(webserver);
 });
 
 // Watch
