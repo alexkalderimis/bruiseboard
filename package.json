@@ -1,6 +1,7 @@
 {
   "name": "bruiseboard",
-  "version": "0.0.0",
+  "version": "0.0.1",
+  "description": "CI dashboard",
   "scripts": {
     "start": "gulp serve",
     "test": "mocha",
