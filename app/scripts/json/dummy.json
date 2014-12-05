@@ -32,19 +32,19 @@
     "jobs": [
       {"status": "passed", "name": "unit"},
       {"status": "error", "name": "integration"},
-      {"status": "failure", "name": "code style"}
+      {"status": "failed", "name": "code style"}
     ]
   },
   {
     "repo": "foo/quux",
-    "status": "failure",
+    "status": "failed",
     "branch": "feature-foo",
     "commit": {"author": "juliesullivan", "hash": "abcde", "message": "did something"},
     "number": 10,
     "jobs": [
       {"status": "passed", "name": "unit"},
       {"status": "passed", "name": "integration"},
-      {"status": "failure", "name": "code style"}
+      {"status": "failed", "name": "code style"}
     ]
   }
 ]

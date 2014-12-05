@@ -44,7 +44,18 @@ exports.get_job = (id, cb) ->
       {job, commit} = JSON.parse body
     catch e
       return cb e
-    name = job.config.env.replace /\S+=/g, ''
+
+    console.log job
+    nameParts = []
+
+    if job.config?.python?
+      nameParts.push job.config.python
+    if job.config?.jdk?
+      nameParts.push job.config.jdk
+    if job.config?.env?
+      nameParts.push job.config.env.replace /\S+=/g, ''
+
+    name = nameParts.join ' '
     status = job.state
     cb null, {name, status}
 
