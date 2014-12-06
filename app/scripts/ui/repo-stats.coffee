@@ -6,9 +6,9 @@ Icon = React.createFactory require './icon'
 
 STATS = [
   {key: 'issues', icon: 'bug', label: 'open issues'},
-  {key: 'pulls', icon: 'fork', label: 'pull requests'},
   {key: 'releases', icon: 'tag', label: 'releases'},
-  {key: 'forks', icon: 'github', label: 'forks'},
+  {key: 'pulls', icon: 'vertically flipped fork', label: 'pull requests'},
+  {key: 'forks', icon: 'fork', label: 'forks'},
 ]
 
 module.exports = RepoStats = React.createClass

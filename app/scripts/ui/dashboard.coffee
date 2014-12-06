@@ -48,6 +48,6 @@ module.exports = Dashboard = React.createClass
   render: ->
     div {},
       GHStats()
-      div className: 'ui vertically padded grid',
+      div className: 'ui vertically divided grid',
         ((Build b) for b in @builds())
 
