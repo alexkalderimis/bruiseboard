@@ -22,7 +22,7 @@ exports.get_build = (repo, cb) ->
       repo: repo
       status: latest.state
       number: latest.number
-      jobs: latest.job_ids
+      jobs: ({id} for id in latest.job_ids)
       branch: commit.branch
       commit:
         author: commit.author_name

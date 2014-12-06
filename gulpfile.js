@@ -69,11 +69,14 @@ gulp.task('html', ['bower'], function() {
       .pipe(gulp.dest('./dist'));
 });
 
+var HACKS = ['/**/modernizr.js', '/semantic-ui/dist/**/*.woff', '/semantic-ui/dist/**/*.ttf'];
+
 gulp.task('bower', ['clean'], function () {
-  var base = {base: 'app/bower_components'};
-  var hack = ['app/bower_components/semantic-ui/dist/**/*.woff', 'app/bower_components/semantic-ui/dist/**/*.ttf'];
-  return gulp.src(hack.concat(bowerFiles()), base)
-             .pipe(gulp.dest('./dist/bower_components'));
+  var bc = 'app/bower_components';
+  var base = {base: bc};
+  var hack = HACKS.map(function (h) { return bc + h; });
+  var dest = gulp.dest('./dist/bower_components');
+  return gulp.src(hack.concat(bowerFiles()), base).pipe(dest);
 });
 
 gulp.task('jest', function () {
