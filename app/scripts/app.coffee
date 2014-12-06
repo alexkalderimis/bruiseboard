@@ -93,7 +93,7 @@ BuildView = React.createFactory React.createClass
           Icon status: @state.status
           @props.repo
       div className: 'right aligned six wide column',
-        div className: 'ui large yellow tag label',
+        div className: 'ui large grey tag label',
           @state.branch,
           '#',
           @state.commit.hash.slice(0, 5),
