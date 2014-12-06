@@ -6,8 +6,6 @@ travis = require './services/travis'
 
 {div, h2, span, p, a, i} = React.DOM
 
-console.log i
-
 COLORS =
   passed: 'teal'
   error: 'black'
@@ -117,13 +115,61 @@ Loader = React.createFactory React.createClass
     div className: 'ui active dimmer',
       div className: 'ui loader'
 
+GHStats = React.createFactory React.createClass
+
+  componentDidMount: ->
+    node = @refs.prog1.getDOMNode()
+    $(node).progress percent: 22
+    node_2 = @refs.prog2.getDOMNode()
+    $(node_2).progress percent: 75
+
+  render: -> div className: 'ui segment',
+    div className: 'ui grid',
+      div className: 'row',
+        div className: 'eight wide column',
+          div className: 'grid',
+            div className: 'row',
+              div className: 'eight wide column',
+                div className: 'ui progress', ref: 'prog1',
+                  div className: 'bar',
+                    div className: 'progress'
+                  div className: 'label',
+                    'milestone 1'
+              div className: 'eight wide column',
+                div className: 'ui progress', ref: 'prog2',
+                  div className: 'bar',
+                    div className: 'progress'
+                  div className: 'label',
+                    'milestone 1'
+        div className: 'eight wide column ui statistics',
+          div className: 'statistic',
+            div className: 'value',
+              '125'
+            div className: 'label',
+              'open issues'
+          div className: 'statistic',
+            div className: 'value',
+              '16'
+            div className: 'label',
+              'pull requests'
+          div className: 'statistic',
+            div className: 'value',
+              '54'
+            div className: 'label',
+              'releases'
 
 BuildsView = React.createFactory React.createClass
+
+  componentDidMount: ->
+    node = @refs.prog1.getDOMNode()
+    $(node).progress percent: 22
 
   render: ->
     builds = ((BuildView {repo: repo, key: repo}) for repo in @props.repos)
 
-    div className: 'ui vertically padded page grid',
-      builds
+    div {},
+      GHStats()
+      div className: 'ui vertically padded grid',
+        builds
 
 React.render (BuildsView {repos}), document.querySelector('#app')

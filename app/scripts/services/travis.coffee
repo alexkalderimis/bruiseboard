@@ -45,7 +45,7 @@ exports.get_job = (id, cb) ->
     catch e
       return cb e
 
-    console.log job
+    # console.debug job
     nameParts = []
 
     if job.config?.python?
