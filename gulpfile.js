@@ -100,9 +100,14 @@ gulp.task('default', ['build', 'jest' ]);
 
 // Webserver
 gulp.task('serve', ['build'], function () {
+  var prod = (!!process.env.DYNO || (process.env.ENV === 'PROD'));
   var port = (process.env.PORT || 9000);
-  var inDevelopment = (process.env.ENV !== 'PROD');
-  var webserver = $.webserver({livereload: inDevelopment, port: port});
+  var host = process.env.HOST || (prod ? '0.0.0.0' : 'localhost' );
+  var webserver = $.webserver({
+    livereload: !prod,
+    port: port,
+    host: host
+  });
   gulp.src('dist').pipe(webserver);
 });
 
