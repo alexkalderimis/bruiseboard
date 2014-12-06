@@ -12,10 +12,12 @@ COLORS =
   passed: 'teal'
   error: 'black'
   failed: 'red'
+  started: 'yellow'
   building: 'yellow'
 
 ICONS =
   error: 'bug'
+  started: 'wait'
   building: 'wait'
   passed: 'checkmark'
   failed: 'remove'
