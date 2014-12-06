@@ -107,7 +107,7 @@ BuildView = React.createFactory React.createClass
 
 Icon = React.createFactory React.createClass
 
-  render: -> i className: "#{ ICONS[@props.status] } icon"
+  render: -> i className: "#{ @props.icon or ICONS[@props.status] } icon"
 
 Loader = React.createFactory React.createClass
 
@@ -115,54 +115,75 @@ Loader = React.createFactory React.createClass
     div className: 'ui active dimmer',
       div className: 'ui loader'
 
-GHStats = React.createFactory React.createClass
+MilestoneProgress = React.createFactory React.createClass
 
   componentDidMount: ->
-    node = @refs.prog1.getDOMNode()
-    $(node).progress percent: 22
-    node_2 = @refs.prog2.getDOMNode()
-    $(node_2).progress percent: 75
+    n = 1
+    node = $ @refs.prog1.getDOMNode()
+    node.progress
+
+    setProgress = ->
+      ms = n++
+      total = (Math.random() * 200).toFixed()
+      value = (Math.random() * total).toFixed()
+      node.progress
+        total: total
+        value: value
+        text:
+          active: "Closed {value} of {total} tickets in milestone #{ ms }"
+          success: "All {total} tickets in milestone #{ ms } closed"
+
+    @interval = setInterval setProgress, (3 * 1000)
+    setProgress()
+
+  componentWillUnmount: -> clearInterval @interval
+
+  render: ->
+    div className: 'ui indicating progress', ref: 'prog1',
+      div className: 'bar',
+        div className: 'progress'
+      div className: 'label',
+        'milestone'
+
+RepoStats = React.createFactory React.createClass
+
+  getInitialState: ->
+    issues: 125
+    pulls: 16
+    releases: 54
+    forks: 22
+
+  STATS: [
+    {key: 'issues', icon: 'bug', label: 'open issues'},
+    {key: 'pulls', icon: 'fork', label: 'pull requests'},
+    {key: 'releases', icon: 'tag', label: 'releases'},
+    {key: 'forks', icon: 'github', label: 'forks'},
+  ]
+
+  render: ->
+    stats = for {key, icon, label} in @STATS
+      div className: 'statistic', key: key,
+        div className: 'value',
+          Icon {icon}
+          @state[key]
+        div className: 'label',
+          label
+
+    div className: 'ui statistics',
+      stats
+      div className: 'statistic',
+
+GHStats = React.createFactory React.createClass
 
   render: -> div className: 'ui segment',
     div className: 'ui grid',
       div className: 'row',
         div className: 'eight wide column',
-          div className: 'grid',
-            div className: 'row',
-              div className: 'eight wide column',
-                div className: 'ui progress', ref: 'prog1',
-                  div className: 'bar',
-                    div className: 'progress'
-                  div className: 'label',
-                    'milestone 1'
-              div className: 'eight wide column',
-                div className: 'ui progress', ref: 'prog2',
-                  div className: 'bar',
-                    div className: 'progress'
-                  div className: 'label',
-                    'milestone 1'
-        div className: 'eight wide column ui statistics',
-          div className: 'statistic',
-            div className: 'value',
-              '125'
-            div className: 'label',
-              'open issues'
-          div className: 'statistic',
-            div className: 'value',
-              '16'
-            div className: 'label',
-              'pull requests'
-          div className: 'statistic',
-            div className: 'value',
-              '54'
-            div className: 'label',
-              'releases'
+          MilestoneProgress()
+        div className: 'eight wide column',
+          RepoStats()
 
 BuildsView = React.createFactory React.createClass
-
-  componentDidMount: ->
-    node = @refs.prog1.getDOMNode()
-    $(node).progress percent: 22
 
   render: ->
     builds = ((BuildView {repo: repo, key: repo}) for repo in @props.repos)
