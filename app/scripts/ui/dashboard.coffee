@@ -42,7 +42,7 @@ module.exports = Dashboard = React.createClass
   builds: ->
     rbu = @updateRepo
     rju = @updateJob
-    for b in _.sortBy (_.values @state.builds), 'startedAt'
+    for b in _(@state.builds).values().sortBy('startedAt').reverse().value()
       _.assign b, {requestBuildUpdate: rbu, requestJobUpdate: rju}
 
   render: ->

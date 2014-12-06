@@ -18,12 +18,14 @@ exports.get_build = (repo, cb) ->
       return cb e
     latest = builds[0]
     commit = c for c in commits when c.id is latest.commit_id
+    console.log 'build', latest
     build =
       repo: repo
       status: latest.state
       number: latest.number
       jobs: ({id} for id in latest.job_ids)
       branch: commit.branch
+      startedAt: new Date(latest.started_at)
       commit:
         author: commit.author_name
         message: commit.message

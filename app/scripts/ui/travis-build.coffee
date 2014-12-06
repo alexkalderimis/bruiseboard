@@ -1,4 +1,5 @@
 React = require 'react'
+moment = require 'moment'
 
 {frequently, less_frequently} = require './times'
 Colors = require './colors'
@@ -6,13 +7,16 @@ Colors = require './colors'
 Job = React.createFactory require './job-view'
 Icon = React.createFactory require './icon'
 
-{div, h2, p} = React.DOM
+{div, h2, p, i} = React.DOM
 
 DONE = ['failed', 'passed', 'errored']
 
 module.exports = TravisBuild = React.createClass
 
   displayName: 'TravisBuild'
+
+  getInitialState: ->
+    fromNow: ''
 
   getDefaultProps: ->
     jobs: []
@@ -24,10 +28,16 @@ module.exports = TravisBuild = React.createClass
     
   update: -> @props.requestBuildUpdate @props.repo
 
+  componentWillMount: ->
+    if @props.startedAt?
+      @setState fromNow: moment(@props.startedAt).fromNow()
+
   componentDidMount: ->
     @interval = setInterval @update, frequently
 
-  componentWillReceiveProps: ({status}) ->
+  componentWillReceiveProps: ({status, startedAt}) ->
+    if startedAt?
+      @setState fromNow: moment(startedAt).fromNow()
     if status in DONE
       clearInterval @interval
       @interval = setInterval @update, less_frequently
@@ -62,10 +72,12 @@ module.exports = TravisBuild = React.createClass
           '#',
           @props.commit.hash.slice(0, 5),
         p {},
-          @props.commit.author,
-          ': '
+          @props.commit.author
+          ' ('
+          @state.fromNow
+          '): '
           @props.commit.message
       div className: 'sixteen wide column',
-        div className: 'ui huge labels',
+        div className: 'ui large labels',
           @jobs()
       @loader()
