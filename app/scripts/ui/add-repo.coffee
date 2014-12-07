@@ -3,15 +3,21 @@ React = require 'react/addons'
 {div, h3, input, button} = React.DOM
 Icon = React.createFactory require './icon'
 
-btnClass = ({repo}) -> React.addons.classSet
+btnClass = ({repo, loading}) -> React.addons.classSet
   'huge circular ui primary icon button': true
+  'loading': !!loading
   'disabled': (!repo || !(/\w+\/\w+/.test repo))
 
 module.exports = AddRepo = React.createClass
 
-  getInitialState: -> {}
+  getInitialState: -> loading: false, repo: null
 
   setRepo: -> @setState repo: @refs.repo.getDOMNode().value
+
+  componentDidMount: -> @props.shouldReset => @setState @getInitialState()
+
+  checkRepo: ->
+    @setState loading: true
 
   render: ->
     div className: 'ui center aligned page grid',
@@ -30,5 +36,5 @@ module.exports = AddRepo = React.createClass
               placeholder: 'repository'
             Icon icon: 'github'
         div className: 'eight wide column',
-          button className: (btnClass @state),
+          button onClick: @checkRepo, className: (btnClass @state),
             Icon icon: 'plus'
