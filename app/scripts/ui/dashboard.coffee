@@ -37,7 +37,7 @@ module.exports = Dashboard = React.createClass
   updateMilestones: ->
     [primaryRepo] = @props.repos
     @props.get_milestones primaryRepo, (err, milestones) =>
-      @setState milestones: milestones
+      @setState milestones: (m for m in milestones when m.closed_issues)
 
   updatePulls: ->
     [primaryRepo] = @props.repos

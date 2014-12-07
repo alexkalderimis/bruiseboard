@@ -34,10 +34,7 @@ module.exports = MilestoneProgress = React.createClass
     {tickets, closed_issues} = milestone
     options = _.assign {}, PROGRESS_OPTIONS, value: closed_issues, total: tickets
     node = $ @refs.progress.getDOMNode()
-    if not closed_issues
-      node.progress 'reset'
-    else
-      node.progress options
+    node.progress options
 
   nextMilestone: ->
     return unless @props.milestones.length
