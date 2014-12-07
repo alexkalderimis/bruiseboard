@@ -102,7 +102,7 @@ gulp.task('build', ['scripts', 'less', 'html']);
 gulp.task('default', ['build', 'jest' ]);
 
 // Webserver
-gulp.task('serve', ['build'], function () {
+gulp.task('serve', [], function () {
   var prod = (!!process.env.DYNO || (process.env.ENV === 'PROD'));
   var port = (process.env.PORT || 9000);
   var host = process.env.HOST || (prod ? '0.0.0.0' : 'localhost' );
@@ -115,7 +115,7 @@ gulp.task('serve', ['build'], function () {
 });
 
 // Watch
-gulp.task('watch', ['serve'], function () {
+gulp.task('watch', ['build', 'serve'], function () {
 
     gulp.watch('bower.json', ['html']);
 
