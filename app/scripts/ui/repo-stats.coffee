@@ -31,4 +31,4 @@ module.exports = RepoStats = React.createClass
 
   render: ->
     div className: 'ui statistics',
-      (@stat s for s in STATS)
+      (@stat s for s in STATS when @props[s.key])

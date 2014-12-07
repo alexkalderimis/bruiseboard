@@ -1,7 +1,7 @@
 React = require 'react'
 _ = require 'lodash'
 
-{div, button} = React.DOM
+{div, button, h3, input, i} = React.DOM
 
 {infrequently} = require './times'
 
@@ -85,14 +85,13 @@ module.exports = Dashboard = React.createClass
       _.assign b, {requestBuildUpdate: rbu, requestJobUpdate: rju}
 
   render: ->
-    div {},
+    div null,
       GHStats @state
       div className: 'ui vertically divided grid',
         ((Build b) for b in @builds())
       div className: 'ui segment',
         button className: 'huge circular ui secondary icon button',
           Icon icon: 'configure'
-        button className: 'huge circular ui primary icon button',
+        button onClick: @props.addRepo, className: 'huge circular ui primary icon button',
           Icon icon: 'plus'
-          
 
