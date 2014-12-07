@@ -11,7 +11,7 @@ module.exports = GHStats = React.createClass
     div className: 'ui grid',
       div className: 'row',
         div className: 'eight wide column',
-          MilestoneProgress()
+          MilestoneProgress @props
         div className: 'eight wide column',
-          RepoStats()
+          RepoStats @props
 

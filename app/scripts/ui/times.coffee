@@ -8,3 +8,4 @@ exports.every_3_minutes = (3 * minutes)
 exports.very_frequently = (10 * seconds)
 exports.frequently = exports.every_30_secs
 exports.less_frequently = exports.every_3_minutes
+exports.infrequently = (15 * minutes)

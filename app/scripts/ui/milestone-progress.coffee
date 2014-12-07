@@ -1,43 +1,57 @@
 React = require 'react'
+_ = require 'lodash'
 
 {div} = React.DOM
 
 {very_frequently} = require './times'
 
+PROGRESS_OPTIONS =
+  showActivity: false
+  performance: false
+  verbose: false
+  debug: false
+  label: 'ratio'
+
 module.exports = MilestoneProgress = React.createClass
   
   displayName: 'MilestoneProgress'
 
-  getDefaultProps: -> milestones: [
-    {name: 'release 1.4', tickets: 143, completed: 74},
-    {name: 'release 1.5', tickets: 34, completed: 28},
-    {name: 'future release', tickets: 12, completed: 3},
-  ]
+  getInitialState: -> index: 0
+
+  getDefaultProps: -> milestones: []
 
   # Assumes $ is available, which it will be since
   # bower will have loaded it in.
   componentDidMount: ->
-    n = 0
-    node = $ @refs.prog.getDOMNode()
+    @interval = setInterval @nextMilestone, very_frequently
+    $(@refs.progress.getDOMNode()).progress PROGRESS_OPTIONS
 
-    setProgress = =>
-      index = (n++ % @props.milestones.length)
-      milestone = @props.milestones[index]
-      total = milestone.tickets
-      value = milestone.completed
-      active = "Closed {value} of {total} tickets in #{ milestone.name }"
-      success = "All {total} tickets in milestone #{ milestone.name } closed"
+  componentDidUpdate: ->
+    @updateProgress()
 
-      node.progress {total, value, text: {active, success}}
+  updateProgress: ->
+    milestone = (@props.milestones[@state.index] ? {})
+    {tickets, closed_issues} = milestone
+    options = _.assign {}, PROGRESS_OPTIONS, value: closed_issues, total: tickets
+    node = $ @refs.progress.getDOMNode()
+    if not closed_issues
+      node.progress 'reset'
+    else
+      node.progress options
 
-    @interval = setInterval setProgress, very_frequently
-    setProgress()
+  nextMilestone: ->
+    return unless @props.milestones.length
+    index = (++@state.index % @props.milestones.length)
+    @setState index: index
 
-  componentWillUnmount: -> clearInterval @interval
+  componentWillUnmount: ->
+    clearInterval @interval
 
   render: ->
-    div className: 'ui indicating progress', ref: 'prog',
+    milestone = (@props.milestones[@state.index] ? {})
+    {title, tickets, closed_issues} = milestone
+    div className: 'ui indicating progress', 'data-value': closed_issues, 'data-total': tickets, ref: 'progress',
       div className: 'bar',
         div className: 'progress'
       div className: 'label',
-        'milestone'
+        title

@@ -3,6 +3,8 @@ _ = require 'lodash'
 
 {div} = React.DOM
 
+{infrequently} = require './times'
+
 GHStats = React.createFactory require './gh-stats'
 Build = React.createFactory require './travis-build'
 
@@ -10,7 +12,7 @@ module.exports = Dashboard = React.createClass
 
   displayName: 'Dashboard'
 
-  getInitialState: -> builds: {}
+  getInitialState: -> builds: {}, milestones: []
 
   componentWillMount: ->
     repos = @props.repos
@@ -19,6 +21,41 @@ module.exports = Dashboard = React.createClass
 
     for repo in @props.repos
       @updateRepo repo
+
+    @updateStats()
+    @interval = setInterval @updateStats, infrequently
+
+  updateStats: ->
+    @updateMilestones()
+    @updatePulls()
+    @updateRepoStats()
+    @updateReleases()
+
+  componentWillUnmount: ->
+    clearInterval @interval
+
+  updateMilestones: ->
+    [primaryRepo] = @props.repos
+    @props.get_milestones primaryRepo, (err, milestones) =>
+      @setState milestones: milestones
+
+  updatePulls: ->
+    [primaryRepo] = @props.repos
+    @props.get_pulls primaryRepo, (err, n) =>
+      @setState pulls: n
+
+  updateReleases: ->
+    [primaryRepo] = @props.repos
+    @props.get_releases primaryRepo, (err, n) =>
+      @setState releases: n
+
+  updateRepoStats: ->
+    [primaryRepo] = @props.repos
+    @props.get_repo primaryRepo, (err, repo) =>
+      if err?
+        console.error err
+      console.log repo
+      @setState issues: repo.open_issues, forks: repo.forks
 
   updateRepo: (repo) ->
     @props.get_build repo, (err, build) =>
@@ -47,7 +84,7 @@ module.exports = Dashboard = React.createClass
 
   render: ->
     div {},
-      GHStats()
+      GHStats @state
       div className: 'ui vertically divided grid',
         ((Build b) for b in @builds())
 
