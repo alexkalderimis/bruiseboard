@@ -1,12 +1,13 @@
 React = require 'react'
 _ = require 'lodash'
 
-{div} = React.DOM
+{div, button} = React.DOM
 
 {infrequently} = require './times'
 
 GHStats = React.createFactory require './gh-stats'
 Build = React.createFactory require './travis-build'
+Icon = React.createFactory require './icon'
 
 module.exports = Dashboard = React.createClass
 
@@ -23,39 +24,40 @@ module.exports = Dashboard = React.createClass
       @updateRepo repo
 
     @updateStats()
+
+    # Can make up to 60 requests per hour per IP - we are making
+    # four requests here, so maximum update frequency is 15 times per hour
     @interval = setInterval @updateStats, infrequently
 
   updateStats: ->
-    @updateMilestones()
-    @updatePulls()
-    @updateRepoStats()
-    @updateReleases()
+    [primaryRepo] = @props.repos
+    return unless primaryRepo?
+    @updateMilestones primaryRepo
+    @updatePulls primaryRepo
+    @updateRepoStats primaryRepo
+    @updateReleases primaryRepo
 
   componentWillUnmount: ->
     clearInterval @interval
 
-  updateMilestones: ->
-    [primaryRepo] = @props.repos
-    @props.get_milestones primaryRepo, (err, milestones) =>
+  updateMilestones: (repo) ->
+    @props.get_milestones repo, (err, milestones) =>
       @setState milestones: (m for m in milestones when m.closed_issues)
 
-  updatePulls: ->
-    [primaryRepo] = @props.repos
-    @props.get_pulls primaryRepo, (err, n) =>
+  updatePulls: (repo) ->
+    @props.get_pulls repo, (err, n) =>
       @setState pulls: n
 
-  updateReleases: ->
-    [primaryRepo] = @props.repos
-    @props.get_releases primaryRepo, (err, n) =>
+  updateReleases: (repo) ->
+    @props.get_releases repo, (err, n) =>
       @setState releases: n
 
-  updateRepoStats: ->
-    [primaryRepo] = @props.repos
-    @props.get_repo primaryRepo, (err, repo) =>
+  updateRepoStats: (repo) ->
+    @props.get_repo repo, (err, stats) =>
       if err?
         console.error err
       console.log repo
-      @setState issues: repo.open_issues, forks: repo.forks
+      @setState issues: stats.open_issues, forks: stats.forks
 
   updateRepo: (repo) ->
     @props.get_build repo, (err, build) =>
@@ -87,4 +89,10 @@ module.exports = Dashboard = React.createClass
       GHStats @state
       div className: 'ui vertically divided grid',
         ((Build b) for b in @builds())
+      div className: 'ui segment',
+        button className: 'huge circular ui secondary icon button',
+          Icon icon: 'configure'
+        button className: 'huge circular ui primary icon button',
+          Icon icon: 'plus'
+          
 

@@ -16,10 +16,10 @@ module.exports = RepoStats = React.createClass
   displayName: 'RepoStats'
 
   getDefaultProps: ->
-    issues: 125
-    pulls: 16
-    releases: 54
-    forks: 22
+    issues: 0
+    pulls: 0
+    releases: 0
+    forks: 0
 
   stat: ({key, icon, label}) ->
     div className: 'statistic', key: key,
