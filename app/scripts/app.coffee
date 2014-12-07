@@ -24,12 +24,21 @@ request req, (err, resp, body) ->
   node = document.querySelector('#app')
   topbar = document.querySelector '#topbar'
   showTopBar = -> $(topbar).sidebar 'toggle'
+  shouldReset = bus.on.bind bus, 'topbar.hide'
   if err or resp.status >= 400
     console.error err, resp.status, body
     React.render (Apology status: resp.status), node
   else
     data = JSON.parse body
     props = _.assign data, travis, github, addRepo: showTopBar
-    React.render (AddRepo shouldReset: bus.on.bind bus, 'topbar.hide'), topbar
+    addRepo = (repo) ->
+      console.log 'adding', repo
+      props.repos.push repo
+      $(topbar).sidebar 'hide'
+      React.unmountComponentAtNode node
+      React.render (App props), node
+
+    adderProps = get_repo: github.get_repo, shouldReset: shouldReset, addRepo: addRepo
+    React.render (AddRepo adderProps), topbar
     React.render (App props), node
     $(topbar).sidebar onHide: -> bus.emit 'topbar.hide'
