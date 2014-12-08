@@ -11,8 +11,7 @@ var $ = require('gulp-load-plugins')();
 var browserify = require('browserify');
 var wiredep = require('wiredep').stream;
 var source = require('vinyl-source-stream');
-
-var bowerFiles = require('main-bower-files');
+var transform = require('vinyl-transform');
 
 var less = require('gulp-less');
 var path = require('path');
@@ -64,12 +63,16 @@ gulp.task('json', ['clean'], function() {
         .pipe(gulp.dest('build/scripts/'));
 });
 
+
 // Scripts
 gulp.task('scripts', ['coffee', 'js', 'json'], function () {
-  return browserify('./build/scripts/app.js')
-          .bundle()
-          .pipe(source('app.js'))
-          .pipe(gulp.dest('dist/scripts'))
+  var browserified = transform(function(filename) {
+    var b = browserify(filename);
+    return b.bundle();
+  });
+  return gulp.src(['./build/scripts/*.js'])
+             .pipe(browserified)
+             .pipe(gulp.dest('dist/scripts'));
 });
 
 // Bower helper - connect all 

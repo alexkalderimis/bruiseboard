@@ -18,7 +18,7 @@ module.exports = (base, db) ->
         logger.error err
         return res.sendStatus 500
       if not board?
-        return res.sendStatus 404
+        return res.status(404).json {}
 
       repos = board.repos.concat req.body
       reposets.update {board: req.params.board}, {$set: {repos}}, (err) ->
@@ -39,7 +39,7 @@ module.exports = (base, db) ->
         if err?
           logger.error err
           res.sendStatus 500
-        res.sendFile 'index.html', fileOptions, (err) ->
+        res.sendFile 'board.html', fileOptions, (err) ->
           if err
             logger.error err
             res.status(err.status).end()
@@ -47,7 +47,7 @@ module.exports = (base, db) ->
   router.get '/:board', (req, res) ->
     if req.accepts('html')
 
-      res.sendFile 'index.html', fileOptions, (err) ->
+      res.sendFile 'board.html', fileOptions, (err) ->
         if err
           logger.error err
           res.status(err.status).end()

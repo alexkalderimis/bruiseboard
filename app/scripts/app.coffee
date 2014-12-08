@@ -29,7 +29,7 @@ bruiser.get_repos (err, data) ->
     $(topbar).sidebar 'hide'
     React.unmountComponentAtNode node
     React.render (App props), node
-    bruiser.add_repo repo, (err) -> console.error err
+    bruiser.add_repo repo, (err) -> console.error(err) if err?
 
   adderProps = {shouldReset, addRepo, get_repo: github.get_repo}
   React.render (AddRepo adderProps), topbar

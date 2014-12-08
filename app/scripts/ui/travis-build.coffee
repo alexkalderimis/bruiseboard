@@ -7,7 +7,7 @@ Colors = require './colors'
 Job = React.createFactory require './job-view'
 Icon = React.createFactory require './icon'
 
-{div, h2, p, i} = React.DOM
+{div, h1, h2, p, i} = React.DOM
 
 DONE = ['failed', 'passed', 'errored']
 
@@ -63,11 +63,11 @@ module.exports = TravisBuild = React.createClass
   render: ->
     div className: "secondary #{ @getColour() } row",
       div className: 'ten wide column',
-        h2 {},
+        h1 {},
           Icon status: @props.status
           @props.repo
       div className: 'right aligned six wide column',
-        div className: 'ui large grey tag label',
+        div className: 'ui huge grey tag label',
           @props.branch,
           '#',
           @props.commit.hash.slice(0, 5),
@@ -78,6 +78,6 @@ module.exports = TravisBuild = React.createClass
           '): '
           @props.commit.message
       div className: 'sixteen wide column',
-        div className: 'ui large labels',
+        div className: 'ui huge labels',
           @jobs()
       @loader()

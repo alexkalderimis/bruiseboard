@@ -68,8 +68,9 @@ module.exports = Dashboard = React.createClass
         return
       _.assign @state.builds[repo], build
       @setState builds: @state.builds
-      for job in build.jobs
-        @updateJob repo, job.id
+      if build.jobs?
+        for job in build.jobs
+          @updateJob repo, job.id
 
   updateJob: (repo, id) ->
     @props.get_job id, (err, job) =>
