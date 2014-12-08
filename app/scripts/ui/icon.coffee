@@ -4,6 +4,7 @@ React = require 'react'
 
 ICONS =
   error: 'bug'
+  errored: 'bug'
   queued: 'wait'
   started: 'setting loading'
   passed: 'checkmark'
