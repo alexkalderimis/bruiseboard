@@ -7,9 +7,13 @@ exports.get_repos = (cb) ->
     json: true
     
   request req, (err, resp, data) ->
-    if err or resp.status >= 400
-      console.error err, resp.status, body
+    resp.status ?= resp.statusCode
+    console.log resp.status, resp.statusCode
+    if resp.status >= 400
       return cb resp
+    else if err
+      console.error err, resp.status, data
+      return cb err
     return cb null, data
 
 exports.add_repo = (repo, done) ->
@@ -19,6 +23,7 @@ exports.add_repo = (repo, done) ->
     json: [repo]
 
   request req, (err, resp) ->
+    resp.status ?= resp.statusCode if resp.statusCode?
     if err or resp.status >= 400
       console.error err, resp.status
       return done resp

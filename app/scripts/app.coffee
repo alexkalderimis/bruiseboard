@@ -18,7 +18,7 @@ $(topbar).sidebar onHide: -> bus.emit 'topbar.hide'
 
 bruiser.get_repos (err, data) ->
   if err
-    return React.render (Apology err), node
+    return React.render (Apology _.pick err, 'status', 'message'), node
 
   showTopBar = -> $(topbar).sidebar 'toggle'
   shouldReset = bus.on.bind bus, 'topbar.hide'
