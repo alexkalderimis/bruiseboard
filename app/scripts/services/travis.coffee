@@ -16,6 +16,9 @@ exports.get_build = (repo, cb) ->
       {builds, commits} = JSON.parse body
     catch e
       return cb e
+    if not builds or not builds.length
+      return cb null, {}
+
     latest = builds[0]
     commit = c for c in commits when c.id is latest.commit_id
     console.log 'build', latest

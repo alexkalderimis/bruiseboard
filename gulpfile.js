@@ -174,12 +174,14 @@ gulp.task('serve', ['coffee:server', 'db:connect'], function () {
 
   var express = require('express');
   var morgan = require('morgan');
+  var bodyParser = require('body-parser');
   var app = express();
   if (!prod) {
     app.use(require('connect-livereload')());
   }
   app.use(express.static(EXPRESS_ROOT));
   app.use(morgan(prod ? 'common' : 'dev'));
+  app.use(bodyParser.json());
   app.use(require('./build/server/routes')(__dirname, db));
   server = require('http').createServer(app);
   server.listen(port);

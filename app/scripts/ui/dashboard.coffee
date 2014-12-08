@@ -1,13 +1,15 @@
 React = require 'react'
 _ = require 'lodash'
 
-{div, button, h3, input, i} = React.DOM
+{div, button, h3, input, i, a} = React.DOM
 
 {infrequently} = require './times'
 
 GHStats = React.createFactory require './gh-stats'
 Build = React.createFactory require './travis-build'
 Icon = React.createFactory require './icon'
+
+GH_REPO = 'https://github.com/alexkalderimis/bruiseboard'
 
 module.exports = Dashboard = React.createClass
 
@@ -88,10 +90,12 @@ module.exports = Dashboard = React.createClass
     div null,
       GHStats @state
       div className: 'ui vertically divided grid',
-        ((Build b) for b in @builds())
+        ((Build b) for b in @builds() when b.status)
       div className: 'ui segment',
         button className: 'huge circular ui secondary icon button',
           Icon icon: 'configure'
         button onClick: @props.addRepo, className: 'huge circular ui primary icon button',
           Icon icon: 'plus'
+        a href: GH_REPO, className: 'huge circular ui tertiary right floated icon button',
+          Icon icon: 'github'
 
