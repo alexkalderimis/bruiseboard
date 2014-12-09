@@ -1,0 +1,57 @@
+[
+    {
+        "key": 0,
+        "repo": "foo/bar",
+        "jobs": [],
+        "status": "queued",
+        "commit": {
+            "author": "John Bar",
+            "message": "Reticulated splines",
+            "hash": "ae35f2cb"
+        }
+    },
+    {
+        "key": 1,
+        "repo": "foo/bar",
+        "jobs": [],
+        "status": "started",
+        "commit": {
+            "author": "John Bar",
+            "message": "Reticulated splines",
+            "hash": "ae35f2cb"
+        }
+    },
+    {
+        "key": 2,
+        "repo": "foo/baz",
+        "jobs": [],
+        "status": "passed",
+        "commit": {
+            "author": "Suzie Cue",
+            "message": "Reticulated splines",
+            "hash": "98a1f4e"
+        }
+    },
+    {
+        "key": 3,
+        "repo": "zop/zap",
+        "jobs": [],
+        "status": "failed",
+        "commit": {
+            "author": "Fake Name",
+            "message": "Reticulated splines",
+            "hash": "67eb2b3"
+        }
+    },
+    {
+        "key": 4,
+        "repo": "flim/flam",
+        "jobs": [],
+        "status": "errored",
+        "commit": {
+            "author": "Qux the Great",
+            "message": "Reticulated splines",
+            "hash": "bef72abc"
+        }
+    }
+]

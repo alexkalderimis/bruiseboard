@@ -56,16 +56,16 @@
                 </div>
                 <div class="main container">
                     <div class="ui close right rail">
-                        <div class="ui secondary vertical following pointing menu">
-                            <a class="active item">
+                        <div class="ui sticky secondary vertical following pointing menu">
+                            <a href="#stats" class="active item">
                                 <i class="dashboard icon"></i> Repository Statistics
                             </a>
-                            <a class="item">
+                            <a href="#builds" class="item">
                                 <i class="settings icon"></i> Travis Builds
                             </a>
                         </div>
                     </div>
-                    <div class="ui segment">
+                    <div class="ui segment" id="stats">
                         <h2 class="ui header">GitHub Repository Statistics</h2>
 
                         <p>Bruise board can display a number of basic statistics about
@@ -101,7 +101,7 @@
                     </div>
 
 
-                    <div class="ui segment">
+                    <div class="ui segment" id="builds">
                         <h2 class="ui header">Travis Builds</h2>
 
                         <p>
@@ -109,7 +109,8 @@
                         time and get instant feedback on the health of your code.
                         </p>
 
-                        <div id="example-builds"></div>
+
+                        <div class="ui segment" id="example-builds"></div>
 
                         <button class="ui right floated primary button">
                             View my builds
