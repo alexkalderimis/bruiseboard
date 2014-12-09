@@ -55,13 +55,10 @@
                     </div>
                 </div>
                 <div class="main container">
-                    <div class="ui right rail">
+                    <div class="ui close right rail">
                         <div class="ui secondary vertical following pointing menu">
                             <a class="active item">
-                                <i class="dashboard icon"></i> Statistics
-                            </a>
-                            <a class="item">
-                                <i class="calendar icon"></i> Milestones
+                                <i class="dashboard icon"></i> Repository Statistics
                             </a>
                             <a class="item">
                                 <i class="settings icon"></i> Travis Builds
@@ -69,29 +66,40 @@
                         </div>
                     </div>
                     <div class="ui segment">
-                        <h2 class="ui header">Statistics</h2>
+                        <h2 class="ui header">GitHub Repository Statistics</h2>
 
                         <p>Bruise board can display a number of basic statistics about
                         your code repository.</p>
+                        
+                        <div class="ui vertical segment">
+                          <h3 class="ui header">Milestones</h3>
+
+                          <p>
+                            See at a glance how much progress you are making to your
+                            open milestones. Configure bruise board to watch one or more
+                            milestones and update progress throughout the day.
+                          </p>
+
+                          <div id="example-milestone"></div>
+                        </div>
+
+                        <div class="ui vertical segment">
+                          <h3 class="ui header">
+                              Statistics
+                          </h3>
+                          
+                          <p>Get an idea of the overall health of your repo in the
+                          form of basic statistics, such as number of open issues,
+                          forks, and pull-requests.
+
+                          <div id="example-statistics"></div>
+                        </div>
 
                         <button class="ui right floated primary button">
                             Get started
                         </button>
                     </div>
 
-                    <div class="ui segment">
-                        <h2 class="ui header">Milestones</h2>
-
-                        <p>
-                        See at a glance how much progress you are making to your
-                        open milestones. Configure bruise board to watch one or more
-                        milestones and update progress throughout the day.
-                        </p>
-
-                        <button class="ui right floated primary button">
-                            See my progress
-                        </button>
-                    </div>
 
                     <div class="ui segment">
                         <h2 class="ui header">Travis Builds</h2>
@@ -100,6 +108,8 @@
                         Monitor CI builds on Travis-CI. Watch the status of your builds in real
                         time and get instant feedback on the health of your code.
                         </p>
+
+                        <div id="example-builds"></div>
 
                         <button class="ui right floated primary button">
                             View my builds

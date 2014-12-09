@@ -1,0 +1,7 @@
+[
+    {"title": "Sprint A", "tickets": 25, "closed_issues": 17},
+    {"title": "Sprint B", "tickets": 25, "closed_issues": 23},
+    {"title": "Current Release", "tickets": 50, "closed_issues": 24},
+    {"title": "Next Release", "tickets": 12, "closed_issues": 3},
+    {"title": "Inbox", "tickets": 42, "closed_issues": 0}
+]
