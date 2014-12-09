@@ -12,7 +12,7 @@ JobView = React.createClass
 
   displayName: 'JobView'
 
-  update: -> @props.requestUpdate @props.job.id
+  update: -> @props.requestUpdate @props.id
 
   componentDidMount: ->
     @interval = setInterval @update, frequently

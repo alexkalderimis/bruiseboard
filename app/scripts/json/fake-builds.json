@@ -2,7 +2,24 @@
     {
         "key": 0,
         "repo": "foo/bar",
-        "jobs": [],
+        "branch": "i858",
+        "jobs": [
+            {
+                "name": "unit",
+                "id": 1,
+                "status": "queued"
+            },
+            {
+                "name": "integration",
+                "id": 2,
+                "status": "queued"
+            },
+            {
+                "name": "acceptance",
+                "id": 3,
+                "status": "queued"
+            }
+        ],
         "status": "queued",
         "commit": {
             "author": "John Bar",
@@ -13,8 +30,25 @@
     {
         "key": 1,
         "repo": "foo/bar",
-        "jobs": [],
-        "status": "started",
+        "branch": "master",
+        "jobs": [
+            {
+                "name": "unit",
+                "id": 1,
+                "status": "queued"
+            },
+            {
+                "name": "integration",
+                "id": 2,
+                "status": "queued"
+            },
+            {
+                "name": "acceptance",
+                "id": 3,
+                "status": "queued"
+            }
+        ],
+        "status": "queued",
         "commit": {
             "author": "John Bar",
             "message": "Reticulated splines",
@@ -24,8 +58,25 @@
     {
         "key": 2,
         "repo": "foo/baz",
-        "jobs": [],
-        "status": "passed",
+        "branch": "dev",
+        "jobs": [
+            {
+                "name": "unit",
+                "id": 1,
+                "status": "queued"
+            },
+            {
+                "name": "integration",
+                "id": 2,
+                "status": "queued"
+            },
+            {
+                "name": "acceptance",
+                "id": 3,
+                "status": "queued"
+            }
+        ],
+        "status": "queued",
         "commit": {
             "author": "Suzie Cue",
             "message": "Reticulated splines",
@@ -34,24 +85,30 @@
     },
     {
         "key": 3,
-        "repo": "zop/zap",
-        "jobs": [],
-        "status": "failed",
+        "repo": "foo/baz",
+        "branch": "fancy-feature",
+        "jobs": [
+            {
+                "name": "unit",
+                "id": 1,
+                "status": "queued"
+            },
+            {
+                "name": "integration",
+                "id": 2,
+                "status": "queued"
+            },
+            {
+                "name": "acceptance",
+                "id": 3,
+                "status": "queued"
+            }
+        ],
+        "status": "queued",
         "commit": {
-            "author": "Fake Name",
+            "author": "Suzie Cue",
             "message": "Reticulated splines",
-            "hash": "67eb2b3"
-        }
-    },
-    {
-        "key": 4,
-        "repo": "flim/flam",
-        "jobs": [],
-        "status": "errored",
-        "commit": {
-            "author": "Qux the Great",
-            "message": "Reticulated splines",
-            "hash": "bef72abc"
+            "hash": "98a1f4e"
         }
     }
 ]

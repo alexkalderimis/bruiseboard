@@ -66,6 +66,8 @@ module.exports = TravisBuild = React.createClass
         h1 {},
           Icon status: @props.status
           @props.repo
+          ' '
+          @props.number
       div className: 'right aligned six wide column',
         div className: 'ui huge grey tag label',
           @props.branch,
