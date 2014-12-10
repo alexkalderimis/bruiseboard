@@ -1,0 +1,30 @@
+{ 
+    "verbs": [
+        "reticulated",
+        "fixed",
+        "added",
+        "changed",
+        "converted",
+        "altered",
+        "composed",
+        "refactored",
+        "introduced",
+        "removed",
+        "reverted",
+        "extracted",
+        "configured"
+    ],
+    "objects": [
+        "splines",
+        "classes",
+        "whitespace",
+        "everything",
+        "interactions",
+        "user interface",
+        "api",
+        "public methods",
+        "singletons",
+        "functions",
+        "paradigms"
+    ]
+}
