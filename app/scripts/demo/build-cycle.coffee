@@ -37,7 +37,9 @@ advanceJob = (j) ->
   if j.status is 'queued'
     if Math.random() > 0.7
       j.status = 'started'
-  else if j.status is 'started'
+    return
+
+  if j.status is 'started'
     r = Math.random()
     if r < 0.5
       j.status = 'started'
@@ -52,7 +54,7 @@ exports.advanceBuild = (b) ->
   if b.status is 'queued'
     if Math.random() > 0.5
       b.status = 'started'
-  
+
   if b.status is 'started'
     for job in b.jobs
       advanceJob job
