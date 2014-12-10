@@ -44,3 +44,8 @@ advanceBuilds = ->
 setInterval advanceBuilds, 1000
 
 $('.ui.sticky').sticky context: '.main.container', offset: 50
+
+$('.pointing.menu .item').on 'click', (e) ->
+  a = $ e.target
+  a.addClass 'active'
+  a.siblings().removeClass 'active'

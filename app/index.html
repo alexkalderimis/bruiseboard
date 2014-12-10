@@ -63,20 +63,25 @@
                             <a href="#builds" class="item">
                                 <i class="settings icon"></i> Travis Builds
                             </a>
+                            <a href="#tools" class="item">
+                                <i class="configure icon"></i> Tools
+                            </a>
                         </div>
                     </div>
-                    <div class="ui segment" id="stats">
+                    <div class="ui segment">
                         <h2 class="ui header">GitHub Repository Statistics</h2>
+                        <a class="anchor" id="stats"></a>
 
-                        <p>Bruise board can display a number of basic statistics about
+                        <p class="description">
+                        Bruise board can display a number of basic statistics about
                         your code repository.</p>
                         
                         <div class="ui vertical segment">
                           <h3 class="ui header">Milestones</h3>
 
-                          <p>
+                          <p class="description">
                             See at a glance how much progress you are making to your
-                            open milestones. Configure bruise board to watch one or more
+                            open milestones. Configure your bruise board to watch one or more
                             milestones and update progress throughout the day.
                           </p>
 
@@ -88,7 +93,8 @@
                               Statistics
                           </h3>
                           
-                          <p>Get an idea of the overall health of your repo in the
+                          <p class="description">
+                          Get an idea of the overall health of your repo in the
                           form of basic statistics, such as number of open issues,
                           forks, and pull-requests.
 
@@ -101,15 +107,18 @@
                     </div>
 
 
-                    <div class="ui segment" id="builds">
-                        <h2 class="ui header">Travis Builds</h2>
+                    <div class="ui segment">
 
-                        <p>
+                        <h2 class="ui header">Travis Builds</h2>
+                        <a class="anchor" id="builds"></a>
+
+                        <p class="description">
                         Monitor CI builds on Travis-CI. Watch the status of your builds in real
                         time and get instant feedback on the health of your code.
                         </p>
 
-                        <p>Bruiseboard tries to show you all the important information
+                        <p class="description">
+                        Bruiseboard tries to show you all the important information
                         to help you see how your builds are proceeding. This includes sub-jobs,
                         so you can tell the eventual state before the entire build is done, as
                         well as getting an idea of how thoroughly your build is broken (or not!)
@@ -120,10 +129,70 @@
                         <button class="ui right floated primary button">
                             View my builds
                         </button>
+
+                    </div>
+
+                    <div class="ui segment">
+
+                        <h2 class="ui header">Tools</h2>
+                        <a class="anchor" id="tools"></a>
+
+                        <h4>Data</h4>
+
+                        <p class="description">
+                        This application is built on top of the open GitHub
+                        and Travis-CI APIs, which they generously provide to
+                        allow you to access data about your code and allow us
+                        to build useful secondary tools such as this.  </p>
+
+                        <h4>Frameworks</h4>
+
+                        <p class="description">
+                        The site is rendered with React.JS from Facebook,
+                        with a little help from jQuery, and styled with
+                        SemanticUI. This is a mainly client based application,
+                        with a small server side component using express and
+                        MongoDB.</p>
+
+                        <h4>Services</h4>
+
+                        <p class="description">
+                        The application itself is open-source under the MIT
+                        license, and available on GitHub. You are most likely
+                        accessing this page on Heroku, where a public instance
+                       is hosted.</p>
                     </div>
                 </div>
-                
+
             </div>
+
+            <div class="ui vertical inverted grey footer segment">
+                <div class="container">
+                    <div class="ui stackable inverted relaxed divided relaxed grid">
+                        <div class="eight wide column">
+                            <h3 class="ui inverted header">Created by Alex Kalderimis</h3>
+
+                                    <a class="ui small inverted circular icon button"
+                                        href="mailto://alex.kalderimis+bruiseboard@gmail.com">
+                                        <i class="mail icon"></i>
+                                    </a>
+
+                                    <a class="ui small inverted circular icon button"
+                                        href="https://github.com/alexkalderimis">
+                                        <i class="github icon"></i>
+                                    </a>
+
+                                    <a class="ui small inverted circular icon button"
+                                        href="https://github.com/alexkalderimis">
+                                        <i class="linkedin icon"></i>
+                                    </a>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                
         </div>
         
 

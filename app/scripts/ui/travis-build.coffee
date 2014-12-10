@@ -62,18 +62,18 @@ module.exports = TravisBuild = React.createClass
 
   render: ->
     div className: "secondary #{ @getColour() } row",
-      div className: 'ten wide column',
+      div className: 'nine wide column',
         h1 {},
           Icon status: @props.status
           @props.repo
           ' '
           @props.number
-      div className: 'right aligned six wide column',
+      div className: 'right aligned seven wide column',
         div className: 'ui huge grey tag label',
           @props.branch,
           '#',
           @props.commit.hash.slice(0, 5),
-        p {},
+        p className: 'commit-message',
           @props.commit.author
           ' ('
           @state.fromNow
